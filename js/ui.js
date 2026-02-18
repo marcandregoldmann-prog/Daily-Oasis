@@ -38,10 +38,19 @@ const UI = (() => {
 
     // Create an app card HTML
     const createAppCard = (app) => {
+        let iconClass = app.icon || 'fa-globe';
+        // Ensure icon has proper Font Awesome classes
+        if (!iconClass.includes('fa-')) {
+            iconClass = 'fa-' + iconClass;
+        }
+        if (!iconClass.startsWith('fas ')) {
+            iconClass = 'fas ' + iconClass;
+        }
+
         return `
             <div class="app-card" data-app-id="${app.id}" draggable="true" role="button" tabindex="0" aria-label="${app.name}">
                 <div class="app-icon-circle">
-                    <i class="app-icon ${app.icon}"></i>
+                    <i class="${iconClass}"></i>
                 </div>
                 <div class="app-name">${escapeHtml(app.name)}</div>
             </div>

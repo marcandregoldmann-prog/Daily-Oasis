@@ -220,12 +220,19 @@ const Settings = (() => {
             const appBrowserList = document.getElementById('appBrowserList');
             appBrowserList.innerHTML = allApps.map(app => {
                 const isSelected = selectedAppIds.has(app.id);
-                const isVisible = Storage.getVisibleApps().find(a => a.id === app.id);
+                let iconClass = app.icon || 'fa-globe';
+                // Ensure icon has proper Font Awesome classes
+                if (!iconClass.includes('fa-')) {
+                    iconClass = 'fa-' + iconClass;
+                }
+                if (!iconClass.startsWith('fas ')) {
+                    iconClass = 'fas ' + iconClass;
+                }
 
                 return `
                     <div class="app-browser-item ${isSelected ? 'selected' : ''}" data-app-id="${app.id}">
                         <div class="app-browser-item-icon">
-                            <i class="${app.icon}"></i>
+                            <i class="${iconClass}"></i>
                         </div>
                         <div class="app-browser-item-name">${escapeHtml(app.name)}</div>
                     </div>

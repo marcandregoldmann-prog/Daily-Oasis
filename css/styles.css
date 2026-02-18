@@ -9,11 +9,11 @@
     --primary-color-hover: rgba(139, 115, 85, 0.2);
 
     /* Light mode colors */
-    --bg-primary: #FFFFFF;
-    --bg-secondary: #F8F8F8;
-    --text-primary: #333333;
-    --text-secondary: #666666;
-    --border-color: rgba(0, 0, 0, 0.1);
+    --bg-primary: #F5F5F5;
+    --bg-secondary: #EEEEEE;
+    --text-primary: #2A2A2A;
+    --text-secondary: #555555;
+    --border-color: rgba(0, 0, 0, 0.15);
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
 
@@ -116,6 +116,10 @@ body {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
+}
+
+.title-text {
+    display: none;
 }
 
 .palm-emoji {

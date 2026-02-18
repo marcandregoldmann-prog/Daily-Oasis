@@ -43,7 +43,7 @@ const Storage = (() => {
     ];
 
     const DEFAULT_SETTINGS = {
-        theme: 'light',
+        theme: 'dark',
         primaryColor: '#8B7355',
     };
 
