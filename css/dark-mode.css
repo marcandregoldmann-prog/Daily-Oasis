@@ -1,0 +1,164 @@
+/* ============================================
+   Daily Oasis - Dark Mode Styles
+   ============================================ */
+
+body.dark-mode {
+    --bg-primary: #1A1A1A;
+    --bg-secondary: #2A2A2A;
+    --text-primary: #E8E8E8;
+    --text-secondary: #B0B0B0;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .header {
+    background-color: var(--bg-primary);
+    border-bottom-color: var(--border-color);
+}
+
+body.dark-mode .main-content {
+    background-color: var(--bg-primary);
+}
+
+body.dark-mode .footer {
+    background-color: var(--bg-primary);
+    border-top-color: var(--border-color);
+}
+
+body.dark-mode .search-input {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .search-input:focus {
+    background-color: var(--bg-primary);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .filter-btn {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .filter-btn:hover {
+    background-color: var(--primary-color-hover);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .filter-btn.active {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+}
+
+body.dark-mode .app-card {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .app-card:hover {
+    background-color: var(--primary-color-hover);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .app-name {
+    color: var(--text-primary);
+}
+
+body.dark-mode .app-card.drag-over {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .empty-state {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .btn-secondary {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .btn-secondary:hover {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color-hover);
+}
+
+body.dark-mode .footer-btn {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+body.dark-mode .footer-btn:hover {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color-hover);
+    color: var(--primary-color);
+}
+
+body.dark-mode .modal-content {
+    background-color: var(--bg-primary);
+}
+
+body.dark-mode .modal-header h2 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .modal-header p {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .modal-close {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .modal-close:hover {
+    color: var(--text-primary);
+}
+
+body.dark-mode .form-group label {
+    color: var(--text-primary);
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus {
+    background-color: var(--bg-primary);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .color-option {
+    border-color: var(--border-color);
+}
+
+body.dark-mode .settings-section {
+    border-bottom-color: var(--border-color);
+}
+
+body.dark-mode .settings-section h3 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .settings-section p {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .context-menu {
+    background-color: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .context-menu-item {
+    color: var(--text-primary);
+}
+
+body.dark-mode .context-menu-item:hover {
+    background-color: var(--primary-color-hover);
+}

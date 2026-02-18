@@ -1,0 +1,647 @@
+/* ============================================
+   Daily Oasis - Main Styles (Light Mode)
+   ============================================ */
+
+:root {
+    /* Primary color - will be overridden by user selection */
+    --primary-color: #8B7355;
+    --primary-color-light: rgba(139, 115, 85, 0.1);
+    --primary-color-hover: rgba(139, 115, 85, 0.2);
+
+    /* Light mode colors */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F8F8F8;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
+    --spacing-xxl: 32px;
+
+    /* Border radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+
+    /* Transitions */
+    --transition: all 200ms ease;
+}
+
+/* ============================================
+   Reset & Base Styles
+   ============================================ */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: var(--transition);
+}
+
+/* ============================================
+   App Container & Layout
+   ============================================ */
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-primary);
+}
+
+.header {
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}
+
+.palm-emoji {
+    margin-right: var(--spacing-sm);
+}
+
+.main-content {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+    width: 100%;
+}
+
+.footer {
+    display: flex;
+    gap: var(--spacing-lg);
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+}
+
+/* ============================================
+   Search & Filter Styles
+   ============================================ */
+
+.search-container {
+    position: relative;
+    margin-bottom: var(--spacing-lg);
+}
+
+.search-input {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: var(--bg-primary);
+    box-shadow: 0 0 0 3px var(--primary-color-light);
+}
+
+.search-clear-btn {
+    position: absolute;
+    right: var(--spacing-lg);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 18px;
+    padding: var(--spacing-sm);
+    transition: var(--transition);
+    display: none;
+}
+
+.search-clear-btn:hover {
+    color: var(--primary-color);
+}
+
+.search-clear-btn.visible {
+    display: block;
+}
+
+.filter-container {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.filter-btn:hover {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color-hover);
+}
+
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    border-color: var(--primary-color);
+}
+
+.app-counter {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: var(--spacing-md);
+}
+
+/* ============================================
+   App Grid & Cards
+   ============================================ */
+
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xxl);
+}
+
+.app-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    user-select: none;
+    min-height: 120px;
+}
+
+.app-card:hover {
+    transform: scale(1.05);
+    background-color: var(--primary-color-hover);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.app-card.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+.app-card.drag-over {
+    border: 2px dashed var(--primary-color);
+    background-color: var(--primary-color-light);
+}
+
+.app-icon {
+    font-size: 48px;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.app-card:hover .app-icon {
+    transform: scale(1.1);
+}
+
+.app-name {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--text-primary);
+    word-break: break-word;
+    line-height: 1.4;
+    max-width: 100%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.app-category-badge {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+/* ============================================
+   Empty State
+   ============================================ */
+
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-xxl);
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+/* ============================================
+   Buttons & Interactive Elements
+   ============================================ */
+
+.btn {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--primary-color-light);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color-hover);
+}
+
+.btn-danger {
+    background-color: #E74C3C;
+    color: #FFFFFF;
+}
+
+.btn-danger:hover {
+    background-color: #C0392B;
+}
+
+.footer-btn {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-btn:hover {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color-hover);
+    color: var(--primary-color);
+}
+
+/* ============================================
+   Modal Styles
+   ============================================ */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: var(--spacing-xl);
+}
+
+.color-modal-content {
+    max-width: 450px;
+}
+
+.settings-modal-content {
+    max-width: 500px;
+}
+
+.app-modal-content {
+    max-width: 450px;
+}
+
+.modal-header {
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+}
+
+.modal-header h2 {
+    font-size: 22px;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.modal-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+}
+
+.modal-footer {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    justify-content: flex-end;
+}
+
+/* ============================================
+   Color Palette
+   ============================================ */
+
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.color-option {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+    border-color: var(--text-secondary);
+}
+
+.color-option.selected {
+    border: 3px solid var(--text-primary);
+    box-shadow: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--text-primary);
+}
+
+.color-option.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    font-weight: bold;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   Settings Section
+   ============================================ */
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.settings-section {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: var(--spacing-xl);
+}
+
+.settings-section:last-child {
+    border-bottom: none;
+}
+
+.settings-section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.settings-section p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.button-group {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.button-group .btn {
+    flex: 1;
+}
+
+/* ============================================
+   Forms
+   ============================================ */
+
+.app-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.form-group input,
+.form-group select {
+    padding: var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: var(--bg-primary);
+    box-shadow: 0 0 0 3px var(--primary-color-light);
+}
+
+/* ============================================
+   Context Menu
+   ============================================ */
+
+.context-menu {
+    display: none;
+    position: fixed;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    z-index: 2000;
+    overflow: hidden;
+    min-width: 150px;
+}
+
+.context-menu.visible {
+    display: block;
+}
+
+.context-menu-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: none;
+    background: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 14px;
+    transition: var(--transition);
+    text-align: left;
+}
+
+.context-menu-item:hover {
+    background-color: var(--primary-color-hover);
+    color: var(--primary-color);
+}
+
+.context-menu-item.delete {
+    color: #E74C3C;
+}
+
+.context-menu-item.delete:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+/* ============================================
+   Utilities
+   ============================================ */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
