@@ -9,35 +9,37 @@ const Storage = (() => {
         INITIALIZED: 'dailyOasis_initialized',
     };
 
+    const MAX_VISIBLE_APPS = 20;
+
     // Default apps data
     const DEFAULT_APPS = [
         // Soziales
-        { id: 'wa', name: 'WhatsApp', url: 'https://web.whatsapp.com/', category: 'Soziales', icon: 'fa-whatsapp', order: 0 },
-        { id: 'ig', name: 'Instagram', url: 'https://www.instagram.com/', category: 'Soziales', icon: 'fa-instagram', order: 1 },
-        { id: 'sc', name: 'Snapchat', url: 'https://web.snapchat.com/', category: 'Soziales', icon: 'fa-snapchat', order: 2 },
+        { id: 'wa', name: 'WhatsApp', url: 'https://web.whatsapp.com/', category: 'Soziales', icon: 'fa-whatsapp', visible: true, order: 0 },
+        { id: 'ig', name: 'Instagram', url: 'https://www.instagram.com/', category: 'Soziales', icon: 'fa-instagram', visible: true, order: 1 },
+        { id: 'sc', name: 'Snapchat', url: 'https://web.snapchat.com/', category: 'Soziales', icon: 'fa-snapchat', visible: true, order: 2 },
 
         // Entertainment
-        { id: 'yt', name: 'YouTube', url: 'https://www.youtube.com/', category: 'Entertainment', icon: 'fa-youtube', order: 3 },
-        { id: 'ytm', name: 'YouTube Music', url: 'https://music.youtube.com/', category: 'Entertainment', icon: 'fa-music', order: 4 },
-        { id: 'sh', name: 'StreamHub', url: 'https://streamhub.example.com/', category: 'Entertainment', icon: 'fa-stream', order: 5 },
-        { id: 'stremio', name: 'Stremio', url: 'https://www.stremio.com/', category: 'Entertainment', icon: 'fa-tv', order: 6 },
+        { id: 'yt', name: 'YouTube', url: 'https://www.youtube.com/', category: 'Entertainment', icon: 'fa-youtube', visible: true, order: 3 },
+        { id: 'ytm', name: 'YouTube Music', url: 'https://music.youtube.com/', category: 'Entertainment', icon: 'fa-music', visible: true, order: 4 },
+        { id: 'sh', name: 'StreamHub', url: 'https://streamhub.example.com/', category: 'Entertainment', icon: 'fa-stream', visible: true, order: 5 },
+        { id: 'stremio', name: 'Stremio', url: 'https://www.stremio.com/', category: 'Entertainment', icon: 'fa-tv', visible: true, order: 6 },
 
         // KI & Tools
-        { id: 'claude', name: 'Claude', url: 'https://claude.ai/', category: 'KI & Tools', icon: 'fa-brain', order: 7 },
-        { id: 'claude-pwa', name: 'Claude (PWA)', url: 'https://claude.ai/', category: 'KI & Tools', icon: 'fa-window-maximize', order: 8 },
-        { id: 'gemini', name: 'Gemini', url: 'https://gemini.google.com/', category: 'KI & Tools', icon: 'fa-sparkles', order: 9 },
-        { id: 'chatgpt', name: 'ChatGPT', url: 'https://chatgpt.com/', category: 'KI & Tools', icon: 'fa-comment', order: 10 },
-        { id: 'google-ai', name: 'Google AI Studio', url: 'https://aistudio.google.com/', category: 'KI & Tools', icon: 'fa-flask', order: 11 },
-        { id: 'notebooklm', name: 'NotebookLM', url: 'https://notebooklm.google.com/', category: 'KI & Tools', icon: 'fa-notebook', order: 12 },
+        { id: 'claude', name: 'Claude', url: 'https://claude.ai/', category: 'KI & Tools', icon: 'fa-brain', visible: true, order: 7 },
+        { id: 'claude-pwa', name: 'Claude (PWA)', url: 'https://claude.ai/', category: 'KI & Tools', icon: 'fa-window-maximize', visible: true, order: 8 },
+        { id: 'gemini', name: 'Gemini', url: 'https://gemini.google.com/', category: 'KI & Tools', icon: 'fa-sparkles', visible: true, order: 9 },
+        { id: 'chatgpt', name: 'ChatGPT', url: 'https://chatgpt.com/', category: 'KI & Tools', icon: 'fa-comment', visible: true, order: 10 },
+        { id: 'google-ai', name: 'Google AI Studio', url: 'https://aistudio.google.com/', category: 'KI & Tools', icon: 'fa-flask', visible: true, order: 11 },
+        { id: 'notebooklm', name: 'NotebookLM', url: 'https://notebooklm.google.com/', category: 'KI & Tools', icon: 'fa-notebook', visible: true, order: 12 },
 
         // Produktives
-        { id: 'firefox', name: 'Firefox', url: 'https://www.mozilla.org/firefox/', category: 'Produktives', icon: 'fa-firefox', order: 13 },
-        { id: 'chrome', name: 'Google Chrome', url: 'https://www.google.com/intl/de/chrome/', category: 'Produktives', icon: 'fa-chrome', order: 14 },
-        { id: 'gmail', name: 'Google Mail', url: 'https://mail.google.com/', category: 'Produktives', icon: 'fa-envelope', order: 15 },
-        { id: 'maps', name: 'Google Maps', url: 'https://maps.google.com/', category: 'Produktives', icon: 'fa-map', order: 16 },
-        { id: 'protonvpn', name: 'ProtonVPN', url: 'https://protonvpn.com/', category: 'Produktives', icon: 'fa-shield', order: 17 },
-        { id: 'protonmail', name: 'ProtonMail', url: 'https://mail.proton.me/', category: 'Produktives', icon: 'fa-lock', order: 18 },
-        { id: 'github', name: 'GitHub', url: 'https://github.com/', category: 'Produktives', icon: 'fa-github', order: 19 },
+        { id: 'firefox', name: 'Firefox', url: 'https://www.mozilla.org/firefox/', category: 'Produktives', icon: 'fa-firefox', visible: true, order: 13 },
+        { id: 'chrome', name: 'Google Chrome', url: 'https://www.google.com/intl/de/chrome/', category: 'Produktives', icon: 'fa-chrome', visible: true, order: 14 },
+        { id: 'gmail', name: 'Google Mail', url: 'https://mail.google.com/', category: 'Produktives', icon: 'fa-envelope', visible: true, order: 15 },
+        { id: 'maps', name: 'Google Maps', url: 'https://maps.google.com/', category: 'Produktives', icon: 'fa-map', visible: true, order: 16 },
+        { id: 'protonvpn', name: 'ProtonVPN', url: 'https://protonvpn.com/', category: 'Produktives', icon: 'fa-shield', visible: true, order: 17 },
+        { id: 'protonmail', name: 'ProtonMail', url: 'https://mail.proton.me/', category: 'Produktives', icon: 'fa-lock', visible: true, order: 18 },
+        { id: 'github', name: 'GitHub', url: 'https://github.com/', category: 'Produktives', icon: 'fa-github', visible: true, order: 19 },
     ];
 
     const DEFAULT_SETTINGS = {
@@ -51,6 +53,21 @@ const Storage = (() => {
             setApps(DEFAULT_APPS);
             setSettings(DEFAULT_SETTINGS);
             setInitialized(true);
+        } else {
+            // Ensure all apps have the 'visible' property
+            const apps = getApps();
+            let needsUpdate = false;
+
+            apps.forEach(app => {
+                if (!app.hasOwnProperty('visible')) {
+                    app.visible = true;
+                    needsUpdate = true;
+                }
+            });
+
+            if (needsUpdate) {
+                setApps(apps);
+            }
         }
     };
 
@@ -75,6 +92,26 @@ const Storage = (() => {
         }
     };
 
+    // Get only visible apps (max 20, sorted by order)
+    const getVisibleApps = () => {
+        const apps = getApps();
+        return apps
+            .filter(app => app.visible)
+            .sort((a, b) => a.order - b.order)
+            .slice(0, MAX_VISIBLE_APPS);
+    };
+
+    // Get all apps including hidden ones
+    const getAllApps = () => {
+        const apps = getApps();
+        return apps.sort((a, b) => {
+            if (a.visible === b.visible) {
+                return a.order - b.order;
+            }
+            return a.visible ? -1 : 1;
+        });
+    };
+
     // Set all apps
     const setApps = (apps) => {
         try {
@@ -87,13 +124,11 @@ const Storage = (() => {
     // Add a new app
     const addApp = (appData) => {
         const apps = getApps();
-        if (apps.length >= 20) {
-            throw new Error('Maximum 20 apps allowed');
-        }
 
         const newApp = {
             id: generateId(),
             ...appData,
+            visible: false, // New apps are hidden by default
             order: apps.length,
             dateAdded: new Date().toISOString(),
         };
@@ -133,11 +168,8 @@ const Storage = (() => {
     // Duplicate an app
     const duplicateApp = (appId) => {
         const apps = getApps();
-        if (apps.length >= 20) {
-            throw new Error('Maximum 20 apps allowed');
-        }
-
         const appToDuplicate = apps.find(app => app.id === appId);
+
         if (!appToDuplicate) {
             throw new Error('App not found');
         }
@@ -145,6 +177,7 @@ const Storage = (() => {
         const newApp = {
             ...appToDuplicate,
             id: generateId(),
+            visible: false, // Duplicated apps are hidden by default
             order: apps.length,
             dateAdded: new Date().toISOString(),
         };
@@ -154,20 +187,59 @@ const Storage = (() => {
         return newApp;
     };
 
-    // Update app order
+    // Toggle app visibility
+    const toggleAppVisibility = (appId, visible) => {
+        const apps = getApps();
+        const app = apps.find(a => a.id === appId);
+
+        if (!app) throw new Error('App not found');
+
+        // Check if we're trying to show more than MAX_VISIBLE_APPS
+        if (visible) {
+            const visibleCount = apps.filter(a => a.visible).length;
+            if (visibleCount >= MAX_VISIBLE_APPS) {
+                throw new Error(`Maximum ${MAX_VISIBLE_APPS} apps can be visible`);
+            }
+        }
+
+        app.visible = visible;
+        setApps(apps);
+        return app;
+    };
+
+    // Set visible apps (array of app IDs)
+    const setVisibleApps = (appIds) => {
+        if (appIds.length > MAX_VISIBLE_APPS) {
+            throw new Error(`Maximum ${MAX_VISIBLE_APPS} apps can be visible`);
+        }
+
+        const apps = getApps();
+        const visibleIdSet = new Set(appIds);
+
+        apps.forEach((app, index) => {
+            app.visible = visibleIdSet.has(app.id);
+            if (app.visible) {
+                app.order = appIds.indexOf(app.id);
+            }
+        });
+
+        setApps(apps);
+    };
+
+    // Update app order (only for visible apps)
     const updateAppOrder = (orderedAppIds) => {
         const apps = getApps();
         const appsMap = new Map(apps.map(app => [app.id, app]));
 
-        const orderedApps = orderedAppIds
-            .map(id => appsMap.get(id))
-            .filter(app => app !== undefined);
-
-        orderedApps.forEach((app, index) => {
-            app.order = index;
+        // Update order for visible apps
+        orderedAppIds.forEach((id, index) => {
+            const app = appsMap.get(id);
+            if (app && app.visible) {
+                app.order = index;
+            }
         });
 
-        setApps(orderedApps);
+        setApps(apps);
     };
 
     // Get settings
@@ -216,10 +288,6 @@ const Storage = (() => {
                 throw new Error('Invalid apps data');
             }
 
-            if (data.apps.length > 20) {
-                throw new Error('Cannot import more than 20 apps');
-            }
-
             setApps(data.apps);
             if (data.settings) {
                 setSettings(data.settings);
@@ -247,11 +315,15 @@ const Storage = (() => {
         init,
         isInitialized,
         getApps,
+        getVisibleApps,
+        getAllApps,
         setApps,
         addApp,
         updateApp,
         deleteApp,
         duplicateApp,
+        toggleAppVisibility,
+        setVisibleApps,
         updateAppOrder,
         getSettings,
         setSettings,
@@ -259,6 +331,7 @@ const Storage = (() => {
         exportData,
         importData,
         reset,
+        MAX_VISIBLE_APPS,
     };
 })();
 

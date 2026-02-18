@@ -55,7 +55,7 @@
 
                 <!-- App Counter -->
                 <div class="app-counter">
-                    <span id="appCount">20</span> / 20 apps
+                    Showing <span id="visibleCount">20</span> / <span id="totalCount">20</span> apps
                 </div>
             </div>
         </header>
@@ -118,10 +118,15 @@
                 <!-- App Management Section -->
                 <section class="settings-section">
                     <h3>App Management</h3>
-                    <p>Add, edit, or remove apps (maximum 20)</p>
-                    <button class="btn btn-secondary" id="addAppBtn">
-                        <i class="fas fa-plus"></i> Add New App
-                    </button>
+                    <p>Manage all your apps. Choose which 20 apps appear on the home screen.</p>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" id="browseAppsBtn">
+                            <i class="fas fa-list"></i> Browse All Apps
+                        </button>
+                        <button class="btn btn-secondary" id="addAppBtn">
+                            <i class="fas fa-plus"></i> Add New App
+                        </button>
+                    </div>
                 </section>
 
                 <!-- Data Management Section -->
@@ -192,6 +197,49 @@
                     <button type="submit" class="btn btn-primary">Save App</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- App Browser Modal -->
+    <div class="modal" id="appBrowserModal">
+        <div class="modal-content app-browser-modal-content">
+            <div class="modal-header">
+                <h2>📱 App Browser</h2>
+                <p>Select which apps to show on your home screen (max 20 visible)</p>
+                <button class="modal-close" id="appBrowserClose" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="app-browser-content">
+                <!-- Search in App Browser -->
+                <div class="search-container">
+                    <input
+                        type="text"
+                        id="appBrowserSearch"
+                        class="search-input"
+                        placeholder="Search apps..."
+                        aria-label="Search apps"
+                    >
+                </div>
+
+                <!-- Category Filter in App Browser -->
+                <div class="filter-container">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="Soziales">Social</button>
+                    <button class="filter-btn" data-category="Entertainment">Entertainment</button>
+                    <button class="filter-btn" data-category="KI & Tools">AI & Tools</button>
+                    <button class="filter-btn" data-category="Produktives">Productivity</button>
+                </div>
+
+                <!-- App List -->
+                <div class="app-browser-list" id="appBrowserList"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="appBrowserCancel">Cancel</button>
+                <button class="btn btn-primary" id="appBrowserSave">Save Selection</button>
+            </div>
         </div>
     </div>
 

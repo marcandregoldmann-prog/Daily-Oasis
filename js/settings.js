@@ -9,6 +9,7 @@ const Settings = (() => {
     const init = () => {
         setupSettingsModal();
         setupAppModal();
+        setupAppBrowserModal();
         setupDataManagement();
     };
 
@@ -82,12 +83,6 @@ const Settings = (() => {
 
     // Open add app modal
     const openAddAppModal = () => {
-        const apps = Storage.getApps();
-        if (apps.length >= 20) {
-            alert('Maximum 20 apps reached. Delete an app first.');
-            return;
-        }
-
         editingAppId = null;
         document.getElementById('appModalTitle').textContent = '➕ Add New App';
         resetAppForm();
@@ -142,6 +137,129 @@ const Settings = (() => {
     const resetAppForm = () => {
         document.getElementById('appForm').reset();
         editingAppId = null;
+    };
+
+    // Setup app browser modal
+    const setupAppBrowserModal = () => {
+        const browseAppsBtn = document.getElementById('browseAppsBtn');
+        const appBrowserModal = document.getElementById('appBrowserModal');
+        const appBrowserClose = document.getElementById('appBrowserClose');
+        const appBrowserCancel = document.getElementById('appBrowserCancel');
+        const appBrowserSave = document.getElementById('appBrowserSave');
+        const appBrowserSearch = document.getElementById('appBrowserSearch');
+        const appBrowserFilterBtns = appBrowserModal.querySelectorAll('.filter-btn');
+        let selectedAppIds = new Set(Storage.getVisibleApps().map(app => app.id));
+
+        browseAppsBtn.addEventListener('click', () => {
+            selectedAppIds = new Set(Storage.getVisibleApps().map(app => app.id));
+            renderAppBrowser();
+            appBrowserModal.classList.add('active');
+        });
+
+        appBrowserClose.addEventListener('click', () => {
+            appBrowserModal.classList.remove('active');
+        });
+
+        appBrowserCancel.addEventListener('click', () => {
+            appBrowserModal.classList.remove('active');
+        });
+
+        appBrowserModal.addEventListener('click', (e) => {
+            if (e.target === appBrowserModal) {
+                appBrowserModal.classList.remove('active');
+            }
+        });
+
+        appBrowserSave.addEventListener('click', () => {
+            try {
+                const appIds = Array.from(selectedAppIds);
+                Storage.setVisibleApps(appIds);
+                Search.resetFilters();
+                appBrowserModal.classList.remove('active');
+                alert('Selection saved! Your dashboard has been updated.');
+            } catch (e) {
+                alert('Error: ' + e.message);
+            }
+        });
+
+        // Filter buttons in app browser
+        appBrowserFilterBtns.forEach(btn => {
+            btn.addEventListener('click', renderAppBrowser);
+        });
+
+        // Search in app browser
+        appBrowserSearch.addEventListener('input', renderAppBrowser);
+
+        const renderAppBrowser = () => {
+            const searchQuery = appBrowserSearch.value.toLowerCase();
+            const filterCategory = Array.from(appBrowserFilterBtns)
+                .find(btn => btn.classList.contains('active'))
+                ?.getAttribute('data-category') || 'all';
+
+            let allApps = Storage.getAllApps();
+
+            // Apply filter
+            if (filterCategory !== 'all') {
+                allApps = allApps.filter(app => app.category === filterCategory);
+            }
+
+            // Apply search
+            if (searchQuery) {
+                allApps = allApps.filter(app => {
+                    const searchFields = [app.name, app.url, app.category].join(' ').toLowerCase();
+                    return searchFields.includes(searchQuery);
+                });
+            }
+
+            // Render apps
+            const appBrowserList = document.getElementById('appBrowserList');
+            appBrowserList.innerHTML = allApps.map(app => {
+                const isSelected = selectedAppIds.has(app.id);
+                const isVisible = Storage.getVisibleApps().find(a => a.id === app.id);
+
+                return `
+                    <div class="app-browser-item ${isSelected ? 'selected' : ''}" data-app-id="${app.id}">
+                        <div class="app-browser-item-icon">
+                            <i class="${app.icon}"></i>
+                        </div>
+                        <div class="app-browser-item-name">${escapeHtml(app.name)}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Attach click handlers
+            const appBrowserItems = appBrowserList.querySelectorAll('.app-browser-item');
+            appBrowserItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const appId = item.getAttribute('data-app-id');
+                    if (selectedAppIds.has(appId)) {
+                        selectedAppIds.delete(appId);
+                    } else {
+                        if (selectedAppIds.size >= Storage.MAX_VISIBLE_APPS) {
+                            alert(`Maximum ${Storage.MAX_VISIBLE_APPS} apps can be visible`);
+                            return;
+                        }
+                        selectedAppIds.add(appId);
+                    }
+                    renderAppBrowser();
+                });
+            });
+
+            // Update filter buttons
+            appBrowserFilterBtns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            Array.from(appBrowserFilterBtns)
+                .find(btn => btn.getAttribute('data-category') === filterCategory)
+                ?.classList.add('active');
+        };
+    };
+
+    // Escape HTML special characters
+    const escapeHtml = (text) => {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     };
 
     // Setup data management

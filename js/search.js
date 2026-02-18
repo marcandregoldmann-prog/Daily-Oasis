@@ -50,8 +50,8 @@ const Search = (() => {
 
     // Perform search and filter
     const performSearch = () => {
-        const apps = Storage.getApps();
-        let filteredApps = apps;
+        const visibleApps = Storage.getVisibleApps();
+        let filteredApps = visibleApps;
 
         // Apply category filter
         if (currentFilter !== 'all') {
@@ -75,18 +75,16 @@ const Search = (() => {
 
         // Update UI
         UI.updateAppGrid(filteredApps);
-        updateAppCounter(filteredApps.length, apps.length);
+        updateAppCounter(filteredApps.length, visibleApps.length);
     };
 
     // Update app counter
     const updateAppCounter = (current, total) => {
-        const counter = document.getElementById('appCount');
-        if (current < total) {
-            counter.textContent = current;
-            document.querySelector('.app-counter').style.display = 'block';
-        } else {
-            counter.textContent = total;
-        }
+        const visibleCount = document.getElementById('visibleCount');
+        const totalCount = document.getElementById('totalCount');
+
+        visibleCount.textContent = current;
+        totalCount.textContent = total;
     };
 
     // Reset filters

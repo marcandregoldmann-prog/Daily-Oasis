@@ -40,11 +40,10 @@ const UI = (() => {
     const createAppCard = (app) => {
         return `
             <div class="app-card" data-app-id="${app.id}" draggable="true" role="button" tabindex="0" aria-label="${app.name}">
-                <div class="app-icon">
-                    <i class="${app.icon}"></i>
+                <div class="app-icon-circle">
+                    <i class="app-icon ${app.icon}"></i>
                 </div>
                 <div class="app-name">${escapeHtml(app.name)}</div>
-                <div class="app-category-badge" title="${app.category}"></div>
             </div>
         `;
     };
