@@ -9,22 +9,38 @@ const Search = (() => {
     // Initialize search
     const init = () => {
         const searchInput = document.getElementById('searchInput');
-        const searchClear = document.getElementById('searchClear');
+        const searchToggleBtn = document.getElementById('searchToggleBtn');
+        const searchCloseBtn = document.getElementById('searchCloseBtn');
+        const searchBarExpanded = document.getElementById('searchBarExpanded');
         const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Search toggle button
+        searchToggleBtn.addEventListener('click', () => {
+            searchBarExpanded.classList.toggle('active');
+            if (searchBarExpanded.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+
+        // Close search button
+        searchCloseBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            searchQuery = '';
+            searchBarExpanded.classList.remove('active');
+            performSearch();
+        });
 
         // Search input listener
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value.toLowerCase();
-            updateSearchClear();
             performSearch();
         });
 
-        // Clear search button
-        searchClear.addEventListener('click', () => {
-            searchInput.value = '';
-            searchQuery = '';
-            updateSearchClear();
-            performSearch();
+        // Close search when pressing Escape
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchBarExpanded.classList.remove('active');
+            }
         });
 
         // Filter button listeners
@@ -36,16 +52,6 @@ const Search = (() => {
                 performSearch();
             });
         });
-    };
-
-    // Update search clear button visibility
-    const updateSearchClear = () => {
-        const searchClear = document.getElementById('searchClear');
-        if (searchQuery.length > 0) {
-            searchClear.classList.add('visible');
-        } else {
-            searchClear.classList.remove('visible');
-        }
     };
 
     // Perform search and filter
@@ -91,14 +97,16 @@ const Search = (() => {
     const resetFilters = () => {
         searchQuery = '';
         currentFilter = 'all';
-        document.getElementById('searchInput').value = '';
+        const searchInput = document.getElementById('searchInput');
+        const searchBarExpanded = document.getElementById('searchBarExpanded');
+        searchInput.value = '';
+        searchBarExpanded.classList.remove('active');
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.remove('active');
             if (btn.getAttribute('data-category') === 'all') {
                 btn.classList.add('active');
             }
         });
-        updateSearchClear();
         performSearch();
     };
 

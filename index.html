@@ -25,37 +25,62 @@
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <h1 class="title">
-                    <span class="palm-emoji">🌴</span>
-                    Daily Oasis
-                </h1>
+                <!-- Left: Logo & Title -->
+                <div class="header-left">
+                    <h1 class="title">
+                        <span class="palm-emoji">🌴</span>
+                        <span class="title-text">Oasis</span>
+                    </h1>
+                </div>
 
-                <!-- Search Bar -->
-                <div class="search-container">
-                    <input
-                        type="text"
-                        id="searchInput"
-                        class="search-input"
-                        placeholder="🔍 Search apps..."
-                        aria-label="Search apps"
-                    >
-                    <button class="search-clear-btn" id="searchClear" aria-label="Clear search">
-                        <i class="fas fa-times"></i>
+                <!-- Center: Category Filters -->
+                <div class="header-center">
+                    <div class="filter-container">
+                        <button class="filter-btn active" data-category="all" aria-pressed="true">All</button>
+                        <button class="filter-btn" data-category="Soziales" aria-pressed="false">Social</button>
+                        <button class="filter-btn" data-category="Entertainment" aria-pressed="false">Ent.</button>
+                        <button class="filter-btn" data-category="KI & Tools" aria-pressed="false">AI</button>
+                        <button class="filter-btn" data-category="Produktives" aria-pressed="false">Prod.</button>
+                    </div>
+                </div>
+
+                <!-- Right: Icons & Search -->
+                <div class="header-right">
+                    <!-- Search Toggle Icon -->
+                    <button class="header-icon-btn" id="searchToggleBtn" aria-label="Toggle search" title="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+
+                    <!-- Theme Toggle Icon -->
+                    <button class="header-icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+
+                    <!-- Settings Icon -->
+                    <button class="header-icon-btn settings-btn" id="settingsBtn" aria-label="Open settings" title="Settings">
+                        <i class="fas fa-cog"></i>
                     </button>
                 </div>
 
-                <!-- Category Filters -->
-                <div class="filter-container">
-                    <button class="filter-btn active" data-category="all" aria-pressed="true">All</button>
-                    <button class="filter-btn" data-category="Soziales" aria-pressed="false">Social</button>
-                    <button class="filter-btn" data-category="Entertainment" aria-pressed="false">Entertainment</button>
-                    <button class="filter-btn" data-category="KI & Tools" aria-pressed="false">AI & Tools</button>
-                    <button class="filter-btn" data-category="Produktives" aria-pressed="false">Productivity</button>
+                <!-- Expandable Search Bar (Hidden by default) -->
+                <div class="search-bar-expanded" id="searchBarExpanded">
+                    <div class="search-container">
+                        <input
+                            type="text"
+                            id="searchInput"
+                            class="search-input"
+                            placeholder="Search apps..."
+                            aria-label="Search apps"
+                        >
+                        <button class="search-close-btn" id="searchCloseBtn" aria-label="Close search">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- App Counter -->
                 <div class="app-counter">
-                    Showing <span id="visibleCount">20</span> / <span id="totalCount">20</span> apps
+                    <span id="visibleCount">20</span> / <span id="totalCount">20</span>
                 </div>
             </div>
         </header>
@@ -71,14 +96,7 @@
         </main>
 
         <!-- Footer -->
-        <footer class="footer">
-            <button class="footer-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                <i class="fas fa-moon"></i>
-            </button>
-            <button class="footer-btn settings-btn" id="settingsBtn" aria-label="Open settings">
-                <i class="fas fa-cog"></i>
-            </button>
-        </footer>
+        <footer class="footer"></footer>
     </div>
 
     <!-- Color Selection Modal (First Load) -->
@@ -188,8 +206,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="appIcon">Icon (Font Awesome name) *</label>
-                    <input type="text" id="appIcon" required placeholder="e.g., fa-whatsapp">
+                    <label for="appIcon">Icon (Font Awesome name)</label>
+                    <input type="text" id="appIcon" placeholder="e.g., fa-whatsapp (auto-detected if empty)">
                 </div>
 
                 <div class="modal-footer">
@@ -269,6 +287,7 @@
     </script>
 
     <!-- Main App Scripts -->
+    <script src="js/icon-detector.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/colors.js"></script>
     <script src="js/search.js"></script>

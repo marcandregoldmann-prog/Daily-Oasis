@@ -109,11 +109,16 @@ const Settings = (() => {
         const name = document.getElementById('appName').value.trim();
         const url = document.getElementById('appUrl').value.trim();
         const category = document.getElementById('appCategory').value;
-        const icon = document.getElementById('appIcon').value.trim();
+        let icon = document.getElementById('appIcon').value.trim();
 
-        if (!name || !url || !category || !icon) {
-            alert('Please fill all fields');
+        if (!name || !url || !category) {
+            alert('Please fill Name, URL, and Category');
             return;
+        }
+
+        // Auto-detect icon if not provided
+        if (!icon) {
+            icon = IconDetector.getIcon(name);
         }
 
         try {
