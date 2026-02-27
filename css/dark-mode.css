@@ -1,164 +1,197 @@
 /* ============================================
-   Daily Oasis - Dark Mode Styles
+   Daily Oasis - Dark Mode Styles (Neumorphism)
    ============================================ */
 
 body.dark-mode {
-    --bg-primary: #1A1A1A;
-    --bg-secondary: #2A2A2A;
-    --text-primary: #E8E8E8;
+    --bg-primary: #2A2D32; /* The Golden Rule: Body Background */
+    --bg-secondary: #2A2D32; /* Matches primary for flat neumorphism */
+    --text-primary: #E0E0E0;
     --text-secondary: #B0B0B0;
-    --border-color: rgba(255, 255, 255, 0.1);
+    --border-color: transparent; /* Clean the Grid */
+
+    /* Neumorphism Shadows */
+    --neumorph-shadow-out: 6px 6px 12px #1d1f23, -6px -6px 12px #373b41;
+    --neumorph-shadow-in: inset 6px 6px 12px #1d1f23, inset -6px -6px 12px #373b41;
 }
 
-body.dark-mode .header {
+body.dark-mode .app-container {
     background-color: var(--bg-primary);
-    border-bottom-color: var(--border-color);
 }
 
 body.dark-mode .main-content {
     background-color: var(--bg-primary);
 }
 
-body.dark-mode .footer {
-    background-color: var(--bg-primary);
-    border-top-color: var(--border-color);
+/* ============================================
+   App Grid & Buttons (Neumorphic Circles)
+   ============================================ */
+
+/* Clean the Grid: Remove borders/outlines from container */
+body.dark-mode .app-card {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+body.dark-mode .app-card:hover {
+    background-color: transparent;
+    border-color: transparent;
+    transform: none; /* Let the circle handle the hover effect */
+}
+
+/* The App Button Circle */
+body.dark-mode .app-icon-circle {
+    background-color: #2A2D32; /* Golden Rule: Same as body */
+    box-shadow: var(--neumorph-shadow-out); /* 3D Extrusion */
+    color: #E0E0E0; /* Icon Visibility */
+    border: none;
+}
+
+/* Pressed State for App Button */
+body.dark-mode .app-card:active .app-icon-circle {
+    box-shadow: var(--neumorph-shadow-in); /* Pressed State */
+    transform: scale(0.95);
+}
+
+/* Hover State for App Button (Optional lift) */
+body.dark-mode .app-card:hover .app-icon-circle {
+    /* Slightly enhance shadow or keep as is? standard neumorph usually doesn't lift much,
+       but let's ensure it doesn't do the old transform */
+    transform: scale(1.02);
+}
+
+body.dark-mode .app-name {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* ============================================
+   Floating Bottom Header (Pill)
+   ============================================ */
+
+body.dark-mode .header-pill {
+    background-color: #2A2D32; /* Set Dark Base Color */
+    box-shadow: var(--neumorph-shadow-out); /* 3D Extrusion */
+    border: none;
+    backdrop-filter: none; /* Remove blur for solid neumorph look */
+}
+
+/* Nav Icons */
+body.dark-mode .header-icon-btn {
+    color: #E0E0E0;
+    background-color: transparent; /* Keep Flat normally */
+    box-shadow: none;
+}
+
+body.dark-mode .header-icon-btn:hover {
+    color: #FFFFFF;
+    background-color: transparent;
+    transform: none;
+}
+
+/* Pressed State for Nav Icons */
+body.dark-mode .header-icon-btn:active,
+body.dark-mode .header-icon-btn.active {
+    box-shadow: var(--neumorph-shadow-in); /* Pressed State */
+    color: var(--primary-color); /* Highlight with theme color if desired, or keep white */
+    border-radius: 50%; /* Ensure round inset */
+}
+
+
+/* ============================================
+   Search & Other Elements
+   ============================================ */
+
+body.dark-mode .search-container {
+    background-color: var(--bg-secondary);
+    box-shadow: var(--neumorph-shadow-out);
 }
 
 body.dark-mode .search-input {
     background-color: var(--bg-secondary);
     color: var(--text-primary);
-    border-color: var(--border-color);
+    border: none;
+    box-shadow: var(--neumorph-shadow-in); /* Inset for input fields usually looks good */
 }
 
 body.dark-mode .search-input:focus {
-    background-color: var(--bg-primary);
-    border-color: var(--primary-color);
+    background-color: var(--bg-secondary);
+    border: none;
+    outline: none;
 }
 
+/* Filter Buttons (App Browser) */
 body.dark-mode .filter-btn {
     background-color: var(--bg-secondary);
     color: var(--text-primary);
-    border-color: var(--border-color);
+    border: none;
+    box-shadow: var(--neumorph-shadow-out);
 }
 
-body.dark-mode .filter-btn:hover {
-    background-color: var(--primary-color-hover);
-    border-color: var(--primary-color);
-}
-
-body.dark-mode .filter-btn.active {
-    background-color: var(--primary-color);
-    color: #FFFFFF;
-}
-
-body.dark-mode .app-card {
+body.dark-mode .filter-btn.active,
+body.dark-mode .filter-btn:active {
     background-color: var(--bg-secondary);
-    border-color: var(--border-color);
-}
-
-body.dark-mode .app-card:hover {
-    background-color: var(--primary-color-hover);
-    border-color: var(--primary-color);
-}
-
-body.dark-mode .app-name {
-    color: var(--text-primary);
-}
-
-body.dark-mode .app-card.drag-over {
-    background-color: var(--primary-color-light);
-    border-color: var(--primary-color);
-}
-
-body.dark-mode .empty-state {
-    color: var(--text-secondary);
-}
-
-body.dark-mode .btn-secondary {
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    border-color: var(--border-color);
-}
-
-body.dark-mode .btn-secondary:hover {
-    border-color: var(--primary-color);
-    background-color: var(--primary-color-hover);
-}
-
-body.dark-mode .footer-btn {
-    background-color: var(--bg-secondary);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-}
-
-body.dark-mode .footer-btn:hover {
-    border-color: var(--primary-color);
-    background-color: var(--primary-color-hover);
+    box-shadow: var(--neumorph-shadow-in);
     color: var(--primary-color);
 }
 
+/* Category Modal Buttons */
+body.dark-mode .category-btn {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    box-shadow: var(--neumorph-shadow-out);
+    border: none;
+}
+
+body.dark-mode .category-btn:hover {
+    transform: translateY(-2px);
+}
+
+body.dark-mode .category-btn.active,
+body.dark-mode .category-btn:active {
+    box-shadow: var(--neumorph-shadow-in);
+    color: var(--primary-color);
+}
+
+
+/* ============================================
+   Modals & General UI
+   ============================================ */
+
 body.dark-mode .modal-content {
     background-color: var(--bg-primary);
+    box-shadow: var(--neumorph-shadow-out);
+    border: none;
 }
 
 body.dark-mode .modal-header h2 {
     color: var(--text-primary);
 }
 
-body.dark-mode .modal-header p {
-    color: var(--text-secondary);
-}
-
 body.dark-mode .modal-close {
     color: var(--text-secondary);
 }
 
-body.dark-mode .modal-close:hover {
-    color: var(--text-primary);
-}
-
-body.dark-mode .form-group label {
-    color: var(--text-primary);
-}
-
-body.dark-mode .form-group input,
-body.dark-mode .form-group select {
+body.dark-mode .btn-secondary {
     background-color: var(--bg-secondary);
     color: var(--text-primary);
-    border-color: var(--border-color);
+    border: none;
+    box-shadow: var(--neumorph-shadow-out);
 }
 
-body.dark-mode .form-group input:focus,
-body.dark-mode .form-group select:focus {
-    background-color: var(--bg-primary);
-    border-color: var(--primary-color);
+body.dark-mode .btn-secondary:active {
+    box-shadow: var(--neumorph-shadow-in);
 }
 
-body.dark-mode .color-option {
-    border-color: var(--border-color);
-}
-
-body.dark-mode .settings-section {
-    border-bottom-color: var(--border-color);
-}
-
-body.dark-mode .settings-section h3 {
-    color: var(--text-primary);
-}
-
-body.dark-mode .settings-section p {
-    color: var(--text-secondary);
-}
-
+/* Context Menu */
 body.dark-mode .context-menu {
     background-color: var(--bg-primary);
-    border-color: var(--border-color);
-}
-
-body.dark-mode .context-menu-item {
-    color: var(--text-primary);
+    box-shadow: var(--neumorph-shadow-out);
+    border: none;
 }
 
 body.dark-mode .context-menu-item:hover {
-    background-color: var(--primary-color-hover);
+    background-color: transparent; /* No flat hover bg */
+    box-shadow: var(--neumorph-shadow-in); /* Inset effect on hover for menu items? or just keep simple */
+    border-radius: 8px;
 }
