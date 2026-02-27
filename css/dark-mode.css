@@ -43,8 +43,12 @@ body.dark-mode .app-card:hover {
 body.dark-mode .app-icon-circle {
     background-color: #2A2D32; /* Golden Rule: Same as body */
     box-shadow: var(--neumorph-shadow-out); /* 3D Extrusion */
-    color: #E0E0E0; /* Icon Visibility */
+    color: #d1d5db; /* Soft legible grey for Dark Mode */
     border: none;
+}
+
+body.dark-mode .app-icon, body.dark-mode .app-icon-circle i {
+    color: #d1d5db;
 }
 
 /* Pressed State for App Button */
