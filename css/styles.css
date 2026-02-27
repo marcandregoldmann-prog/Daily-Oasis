@@ -301,9 +301,6 @@ body {
 }
 
 /* Dark mode neumorphism adjustment handled in dark-mode.css or below via variables */
-body.dark-mode .category-btn {
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.3), -5px -5px 10px rgba(255,255,255,0.05);
-}
 
 .category-btn:hover {
     transform: translateY(-2px);
@@ -314,9 +311,6 @@ body.dark-mode .category-btn {
     color: var(--primary-color);
 }
 
-body.dark-mode .category-btn:active, body.dark-mode .category-btn.active {
-    box-shadow: inset 5px 5px 10px rgba(0,0,0,0.3), inset -5px -5px 10px rgba(255,255,255,0.05);
-}
 
 
 /* ============================================
