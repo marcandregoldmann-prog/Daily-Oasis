@@ -22,69 +22,6 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <!-- Left: Logo & Title -->
-                <div class="header-left">
-                    <h1 class="title">
-                        <span class="palm-emoji">🌴</span>
-                        <span class="title-text">Oasis</span>
-                    </h1>
-                </div>
-
-                <!-- Center: Category Filters -->
-                <div class="header-center">
-                    <div class="filter-container">
-                        <button class="filter-btn active" data-category="all" aria-pressed="true">All</button>
-                        <button class="filter-btn" data-category="Soziales" aria-pressed="false">Social</button>
-                        <button class="filter-btn" data-category="Entertainment" aria-pressed="false">Ent.</button>
-                        <button class="filter-btn" data-category="KI & Tools" aria-pressed="false">AI</button>
-                        <button class="filter-btn" data-category="Produktives" aria-pressed="false">Prod.</button>
-                    </div>
-                </div>
-
-                <!-- Right: Icons & Search -->
-                <div class="header-right">
-                    <!-- Search Toggle Icon -->
-                    <button class="header-icon-btn" id="searchToggleBtn" aria-label="Toggle search" title="Search">
-                        <i class="fas fa-search"></i>
-                    </button>
-
-                    <!-- Theme Toggle Icon -->
-                    <button class="header-icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Dark Mode">
-                        <i class="fas fa-moon"></i>
-                    </button>
-
-                    <!-- Settings Icon -->
-                    <button class="header-icon-btn settings-btn" id="settingsBtn" aria-label="Open settings" title="Settings">
-                        <i class="fas fa-cog"></i>
-                    </button>
-                </div>
-
-                <!-- Expandable Search Bar (Hidden by default) -->
-                <div class="search-bar-expanded" id="searchBarExpanded">
-                    <div class="search-container">
-                        <input
-                            type="text"
-                            id="searchInput"
-                            class="search-input"
-                            placeholder="Search apps..."
-                            aria-label="Search apps"
-                        >
-                        <button class="search-close-btn" id="searchCloseBtn" aria-label="Close search">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- App Counter -->
-                <div class="app-counter">
-                    <span id="visibleCount">20</span> / <span id="totalCount">20</span>
-                </div>
-            </div>
-        </header>
-
         <!-- Main Content -->
         <main class="main-content">
             <div class="app-grid" id="appGrid"></div>
@@ -95,8 +32,68 @@
             </div>
         </main>
 
+        <!-- Bottom Floating Header -->
+        <header class="floating-header">
+            <div class="header-pill">
+                 <!-- Search Toggle Icon -->
+                 <button class="header-icon-btn" id="searchToggleBtn" aria-label="Toggle search" title="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <!-- Filter Icon (New) -->
+                <button class="header-icon-btn" id="filterBtn" aria-label="Filter apps" title="Filter">
+                    <i class="fas fa-filter"></i>
+                </button>
+
+                <!-- Settings Icon -->
+                <button class="header-icon-btn settings-btn" id="settingsBtn" aria-label="Open settings" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+
+                <!-- Theme Toggle Icon -->
+                <button class="header-icon-btn theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Expandable Search Bar (Hidden by default) -->
+        <div class="search-bar-expanded" id="searchBarExpanded">
+            <div class="search-container">
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search-input"
+                    placeholder="Search apps..."
+                    aria-label="Search apps"
+                >
+                <button class="search-close-btn" id="searchCloseBtn" aria-label="Close search">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
         <!-- Footer -->
         <footer class="footer"></footer>
+    </div>
+
+    <!-- Category Selection Modal (Neumorphism) -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content category-modal-content">
+            <div class="modal-header">
+                <h2>Category</h2>
+                <button class="modal-close" id="categoryClose" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="category-list">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="Soziales">Social</button>
+                <button class="category-btn" data-category="Entertainment">Entertainment</button>
+                <button class="category-btn" data-category="KI & Tools">AI & Tools</button>
+                <button class="category-btn" data-category="Produktives">Productivity</button>
+            </div>
+        </div>
     </div>
 
     <!-- Color Selection Modal (First Load) -->

@@ -50,6 +50,7 @@ const Settings = (() => {
                 Storage.reset();
                 Search.resetFilters();
                 settingsModal.classList.remove('active');
+                UI.renderAppGrid();
             }
         });
     };
@@ -132,7 +133,8 @@ const Settings = (() => {
 
             document.getElementById('appModal').classList.remove('active');
             resetAppForm();
-            Search.performSearch();
+            // Refreshes the grid
+            UI.renderAppGrid();
         } catch (e) {
             alert(e.message);
         }
@@ -153,9 +155,10 @@ const Settings = (() => {
         const appBrowserSave = document.getElementById('appBrowserSave');
         const appBrowserSearch = document.getElementById('appBrowserSearch');
         const appBrowserFilterBtns = appBrowserModal.querySelectorAll('.filter-btn');
-        let selectedAppIds = new Set(Storage.getVisibleApps().map(app => app.id));
+        let selectedAppIds = new Set();
 
         browseAppsBtn.addEventListener('click', () => {
+            // Get currently visible apps to pre-select
             selectedAppIds = new Set(Storage.getVisibleApps().map(app => app.id));
             renderAppBrowser();
             appBrowserModal.classList.add('active');
@@ -179,7 +182,9 @@ const Settings = (() => {
             try {
                 const appIds = Array.from(selectedAppIds);
                 Storage.setVisibleApps(appIds);
-                Search.resetFilters();
+                // Refresh main grid immediately
+                UI.renderAppGrid();
+
                 appBrowserModal.classList.remove('active');
                 alert('Selection saved! Your dashboard has been updated.');
             } catch (e) {
@@ -189,13 +194,17 @@ const Settings = (() => {
 
         // Filter buttons in app browser
         appBrowserFilterBtns.forEach(btn => {
-            btn.addEventListener('click', renderAppBrowser);
+            btn.addEventListener('click', (e) => {
+                 appBrowserFilterBtns.forEach(b => b.classList.remove('active'));
+                 e.target.classList.add('active');
+                 renderAppBrowser();
+            });
         });
 
         // Search in app browser
         appBrowserSearch.addEventListener('input', renderAppBrowser);
 
-        const renderAppBrowser = () => {
+        function renderAppBrowser() {
             const searchQuery = appBrowserSearch.value.toLowerCase();
             const filterCategory = Array.from(appBrowserFilterBtns)
                 .find(btn => btn.classList.contains('active'))
@@ -248,7 +257,7 @@ const Settings = (() => {
                         selectedAppIds.delete(appId);
                     } else {
                         if (selectedAppIds.size >= Storage.MAX_VISIBLE_APPS) {
-                            alert(`Maximum ${Storage.MAX_VISIBLE_APPS} apps can be visible`);
+                            alert(`Maximum ${Storage.MAX_VISIBLE_APPS} apps can be visible. Please deselect an app first.`);
                             return;
                         }
                         selectedAppIds.add(appId);
@@ -256,14 +265,6 @@ const Settings = (() => {
                     renderAppBrowser();
                 });
             });
-
-            // Update filter buttons
-            appBrowserFilterBtns.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            Array.from(appBrowserFilterBtns)
-                .find(btn => btn.getAttribute('data-category') === filterCategory)
-                ?.classList.add('active');
         };
     };
 
@@ -307,6 +308,7 @@ const Settings = (() => {
                     Storage.importData(event.target.result);
                     document.getElementById('settingsModal').classList.remove('active');
                     Search.resetFilters();
+                    UI.renderAppGrid();
                     alert('Data imported successfully!');
                 } catch (err) {
                     alert('Error importing data: ' + err.message);

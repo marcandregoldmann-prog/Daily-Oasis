@@ -5,13 +5,16 @@
 const UI = (() => {
     // Initialize UI
     const init = () => {
+        setupFloatingHeader();
         renderAppGrid();
         setupContextMenu();
+        setupCategoryModal();
     };
 
     // Render the app grid
     const renderAppGrid = () => {
-        updateAppGrid(Storage.getApps());
+        // Always get visible apps which are now strictly managed to be max 20
+        updateAppGrid(Storage.getVisibleApps());
     };
 
     // Update app grid with given apps
@@ -27,10 +30,10 @@ const UI = (() => {
 
         emptyState.style.display = 'none';
 
-        // Sort apps by order
-        apps.sort((a, b) => a.order - b.order);
+        // Ensure we only render up to MAX_VISIBLE_APPS just in case
+        const visibleApps = apps.slice(0, Storage.MAX_VISIBLE_APPS);
 
-        appGrid.innerHTML = apps.map(app => createAppCard(app)).join('');
+        appGrid.innerHTML = visibleApps.map(app => createAppCard(app)).join('');
 
         // Attach event listeners to cards
         attachCardListeners();
@@ -128,8 +131,20 @@ const UI = (() => {
         const contextMenu = document.getElementById('contextMenu');
         window._contextMenuState.setCurrentAppId(appId);
 
-        contextMenu.style.left = event.clientX + 'px';
-        contextMenu.style.top = event.clientY + 'px';
+        // Adjust position to keep it on screen
+        let x = event.clientX;
+        let y = event.clientY;
+
+        // Simple boundary check (assuming menu width ~150px)
+        if (x + 150 > window.innerWidth) {
+            x = window.innerWidth - 160;
+        }
+        if (y + 100 > window.innerHeight) {
+            y = window.innerHeight - 110;
+        }
+
+        contextMenu.style.left = x + 'px';
+        contextMenu.style.top = y + 'px';
         contextMenu.classList.add('visible');
     };
 
@@ -145,7 +160,7 @@ const UI = (() => {
             case 'duplicate':
                 try {
                     Storage.duplicateApp(appId);
-                    Search.performSearch();
+                    renderAppGrid(); // Refresh grid
                 } catch (e) {
                     alert(e.message);
                 }
@@ -153,7 +168,7 @@ const UI = (() => {
             case 'delete':
                 if (confirm(`Delete "${app.name}"?`)) {
                     Storage.deleteApp(appId);
-                    Search.performSearch();
+                    renderAppGrid(); // Refresh grid
                 }
                 break;
         }
@@ -204,6 +219,85 @@ const UI = (() => {
         return div.innerHTML;
     };
 
+    // Setup Category Modal
+    const setupCategoryModal = () => {
+        const filterBtn = document.getElementById('filterBtn');
+        const categoryModal = document.getElementById('categoryModal');
+        const categoryClose = document.getElementById('categoryClose');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+
+        if(filterBtn) {
+            filterBtn.addEventListener('click', () => {
+                categoryModal.classList.add('active');
+            });
+        }
+
+        if(categoryClose) {
+            categoryClose.addEventListener('click', () => {
+                categoryModal.classList.remove('active');
+            });
+        }
+
+        categoryModal.addEventListener('click', (e) => {
+            if (e.target === categoryModal) {
+                categoryModal.classList.remove('active');
+            }
+        });
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // Add to clicked
+                btn.classList.add('active');
+
+                const category = btn.getAttribute('data-category');
+
+                // Since requirements say "strictly locked to 20 apps", filtering on the main screen
+                // might contradict "20 apps always visible".
+                // However, usually filtering means showing a subset.
+                // If the user wants 20 apps fixed, filtering might be for finding apps to LAUNCH.
+                // BUT, the requirement "Everything must be visible in viewport" suggests the main grid IS the view.
+
+                // Let's implement filtering on the main grid for now.
+                // If 'all', show the 20 visible apps.
+                // If category, show only visible apps matching category.
+
+                const visibleApps = Storage.getVisibleApps();
+                let filteredApps = visibleApps;
+
+                if (category !== 'all') {
+                    filteredApps = visibleApps.filter(app => app.category === category);
+                }
+
+                updateAppGrid(filteredApps);
+                categoryModal.classList.remove('active');
+            });
+        });
+    };
+
+    // Setup Floating Header logic (Search toggle mainly)
+    const setupFloatingHeader = () => {
+        const searchToggleBtn = document.getElementById('searchToggleBtn');
+        const searchBarExpanded = document.getElementById('searchBarExpanded');
+        const searchCloseBtn = document.getElementById('searchCloseBtn');
+        const searchInput = document.getElementById('searchInput');
+
+        searchToggleBtn.addEventListener('click', () => {
+            searchBarExpanded.classList.toggle('active');
+            if (searchBarExpanded.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+
+        searchCloseBtn.addEventListener('click', () => {
+            searchBarExpanded.classList.remove('active');
+            searchInput.value = '';
+            // Reset search filter
+            Search.performSearch();
+        });
+    };
+
     return {
         init,
         renderAppGrid,
@@ -212,7 +306,6 @@ const UI = (() => {
         initTheme,
         updateThemeToggleIcon,
         showNotification: (message, type = 'info') => {
-            // Simple notification - could be enhanced
             console.log(`[${type}] ${message}`);
         },
     };
