@@ -27,7 +27,7 @@ const Storage = (() => {
         // KI & Tools
         { id: 'claude', name: 'Claude', url: 'https://claude.ai/', category: 'KI & Tools', icon: 'fa-solid fa-brain', visible: true, order: 7 },
         { id: 'claude-pwa', name: 'Claude (PWA)', url: 'https://claude.ai/', category: 'KI & Tools', icon: 'fa-solid fa-window-maximize', visible: true, order: 8 },
-        { id: 'gemini', name: 'Gemini', url: 'https://gemini.google.com/', category: 'KI & Tools', icon: 'fa-solid fa-sparkles', visible: true, order: 9 },
+        { id: 'gemini', name: 'Gemini', url: 'https://gemini.google.com/', category: 'KI & Tools', icon: 'fa-solid fa-wand-magic-sparkles', visible: true, order: 9 },
         { id: 'chatgpt', name: 'ChatGPT', url: 'https://chatgpt.com/', category: 'KI & Tools', icon: 'fa-solid fa-comment', visible: true, order: 10 },
         { id: 'google-ai', name: 'Google AI Studio', url: 'https://aistudio.google.com/', category: 'KI & Tools', icon: 'fa-solid fa-flask', visible: true, order: 11 },
         { id: 'notebooklm', name: 'NotebookLM', url: 'https://notebooklm.google.com/', category: 'KI & Tools', icon: 'fa-solid fa-book', visible: true, order: 12 },

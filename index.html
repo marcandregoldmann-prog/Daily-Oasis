@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#8B7355">
     <meta name="description" content="Daily Oasis - Your personal app launcher dashboard">
     <title>🌴 Daily Oasis - App Launcher</title>
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="assets/icon-192x192.png">
-    <link rel="apple-touch-icon" href="assets/icon-192x192.png">
+    <meta name="theme-color" content="#2A2D32">
+    <link rel="icon" type="image/png" href="assets/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -277,8 +277,12 @@
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(() => {
-                // Service worker registration failed, app continues without offline support
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
             });
         }
     </script>
