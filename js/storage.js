@@ -209,17 +209,16 @@ const Storage = (() => {
 
     // Set visible apps (array of app IDs)
     const setVisibleApps = (appIds) => {
-        if (appIds.length > MAX_VISIBLE_APPS) {
-            throw new Error(`Maximum ${MAX_VISIBLE_APPS} apps can be visible`);
-        }
+        // Enforce STRICT limit: take first 20 if more are provided
+        const finalAppIds = appIds.slice(0, MAX_VISIBLE_APPS);
 
         const apps = getApps();
-        const visibleIdSet = new Set(appIds);
+        const visibleIdSet = new Set(finalAppIds);
 
-        apps.forEach((app, index) => {
+        apps.forEach((app) => {
             app.visible = visibleIdSet.has(app.id);
             if (app.visible) {
-                app.order = appIds.indexOf(app.id);
+                app.order = finalAppIds.indexOf(app.id);
             }
         });
 
