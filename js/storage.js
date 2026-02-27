@@ -14,32 +14,32 @@ const Storage = (() => {
     // Default apps data
     const DEFAULT_APPS = [
         // Soziales
-        { id: 'wa', name: 'WhatsApp', url: 'https://web.whatsapp.com/', category: 'Soziales', icon: 'fa-whatsapp', visible: true, order: 0 },
-        { id: 'ig', name: 'Instagram', url: 'https://www.instagram.com/', category: 'Soziales', icon: 'fa-instagram', visible: true, order: 1 },
-        { id: 'sc', name: 'Snapchat', url: 'https://web.snapchat.com/', category: 'Soziales', icon: 'fa-snapchat', visible: true, order: 2 },
+        { id: 'wa', name: 'WhatsApp', url: 'https://web.whatsapp.com/', category: 'Soziales', icon: 'fa-brands fa-whatsapp', visible: true, order: 0 },
+        { id: 'ig', name: 'Instagram', url: 'https://www.instagram.com/', category: 'Soziales', icon: 'fa-brands fa-instagram', visible: true, order: 1 },
+        { id: 'sc', name: 'Snapchat', url: 'https://web.snapchat.com/', category: 'Soziales', icon: 'fa-brands fa-snapchat', visible: true, order: 2 },
 
         // Entertainment
-        { id: 'yt', name: 'YouTube', url: 'https://www.youtube.com/', category: 'Entertainment', icon: 'fa-youtube', visible: true, order: 3 },
-        { id: 'ytm', name: 'YouTube Music', url: 'https://music.youtube.com/', category: 'Entertainment', icon: 'fa-music', visible: true, order: 4 },
-        { id: 'sh', name: 'StreamHub', url: 'https://streamhub.example.com/', category: 'Entertainment', icon: 'fa-stream', visible: true, order: 5 },
-        { id: 'stremio', name: 'Stremio', url: 'https://www.stremio.com/', category: 'Entertainment', icon: 'fa-tv', visible: true, order: 6 },
+        { id: 'yt', name: 'YouTube', url: 'https://www.youtube.com/', category: 'Entertainment', icon: 'fa-brands fa-youtube', visible: true, order: 3 },
+        { id: 'ytm', name: 'YouTube Music', url: 'https://music.youtube.com/', category: 'Entertainment', icon: 'fa-solid fa-music', visible: true, order: 4 },
+        { id: 'sh', name: 'StreamHub', url: 'https://streamhub.example.com/', category: 'Entertainment', icon: 'fa-solid fa-stream', visible: true, order: 5 },
+        { id: 'stremio', name: 'Stremio', url: 'https://www.stremio.com/', category: 'Entertainment', icon: 'fa-solid fa-tv', visible: true, order: 6 },
 
         // KI & Tools
-        { id: 'claude', name: 'Claude', url: 'https://claude.ai/', category: 'KI & Tools', icon: 'fa-brain', visible: true, order: 7 },
-        { id: 'claude-pwa', name: 'Claude (PWA)', url: 'https://claude.ai/', category: 'KI & Tools', icon: 'fa-window-maximize', visible: true, order: 8 },
-        { id: 'gemini', name: 'Gemini', url: 'https://gemini.google.com/', category: 'KI & Tools', icon: 'fa-sparkles', visible: true, order: 9 },
-        { id: 'chatgpt', name: 'ChatGPT', url: 'https://chatgpt.com/', category: 'KI & Tools', icon: 'fa-comment', visible: true, order: 10 },
-        { id: 'google-ai', name: 'Google AI Studio', url: 'https://aistudio.google.com/', category: 'KI & Tools', icon: 'fa-flask', visible: true, order: 11 },
-        { id: 'notebooklm', name: 'NotebookLM', url: 'https://notebooklm.google.com/', category: 'KI & Tools', icon: 'fa-notebook', visible: true, order: 12 },
+        { id: 'claude', name: 'Claude', url: 'https://claude.ai/', category: 'KI & Tools', icon: 'fa-solid fa-brain', visible: true, order: 7 },
+        { id: 'claude-pwa', name: 'Claude (PWA)', url: 'https://claude.ai/', category: 'KI & Tools', icon: 'fa-solid fa-window-maximize', visible: true, order: 8 },
+        { id: 'gemini', name: 'Gemini', url: 'https://gemini.google.com/', category: 'KI & Tools', icon: 'fa-solid fa-sparkles', visible: true, order: 9 },
+        { id: 'chatgpt', name: 'ChatGPT', url: 'https://chatgpt.com/', category: 'KI & Tools', icon: 'fa-solid fa-comment', visible: true, order: 10 },
+        { id: 'google-ai', name: 'Google AI Studio', url: 'https://aistudio.google.com/', category: 'KI & Tools', icon: 'fa-solid fa-flask', visible: true, order: 11 },
+        { id: 'notebooklm', name: 'NotebookLM', url: 'https://notebooklm.google.com/', category: 'KI & Tools', icon: 'fa-solid fa-book', visible: true, order: 12 },
 
         // Produktives
-        { id: 'firefox', name: 'Firefox', url: 'https://www.mozilla.org/firefox/', category: 'Produktives', icon: 'fa-firefox', visible: true, order: 13 },
-        { id: 'chrome', name: 'Google Chrome', url: 'https://www.google.com/intl/de/chrome/', category: 'Produktives', icon: 'fa-chrome', visible: true, order: 14 },
-        { id: 'gmail', name: 'Google Mail', url: 'https://mail.google.com/', category: 'Produktives', icon: 'fa-envelope', visible: true, order: 15 },
-        { id: 'maps', name: 'Google Maps', url: 'https://maps.google.com/', category: 'Produktives', icon: 'fa-map', visible: true, order: 16 },
-        { id: 'protonvpn', name: 'ProtonVPN', url: 'https://protonvpn.com/', category: 'Produktives', icon: 'fa-shield', visible: true, order: 17 },
-        { id: 'protonmail', name: 'ProtonMail', url: 'https://mail.proton.me/', category: 'Produktives', icon: 'fa-lock', visible: true, order: 18 },
-        { id: 'github', name: 'GitHub', url: 'https://github.com/', category: 'Produktives', icon: 'fa-github', visible: true, order: 19 },
+        { id: 'firefox', name: 'Firefox', url: 'https://www.mozilla.org/firefox/', category: 'Produktives', icon: 'fa-brands fa-firefox', visible: true, order: 13 },
+        { id: 'chrome', name: 'Google Chrome', url: 'https://www.google.com/intl/de/chrome/', category: 'Produktives', icon: 'fa-brands fa-chrome', visible: true, order: 14 },
+        { id: 'gmail', name: 'Google Mail', url: 'https://mail.google.com/', category: 'Produktives', icon: 'fa-solid fa-envelope', visible: true, order: 15 },
+        { id: 'maps', name: 'Google Maps', url: 'https://maps.google.com/', category: 'Produktives', icon: 'fa-solid fa-map', visible: true, order: 16 },
+        { id: 'protonvpn', name: 'ProtonVPN', url: 'https://protonvpn.com/', category: 'Produktives', icon: 'fa-solid fa-shield-halved', visible: true, order: 17 },
+        { id: 'protonmail', name: 'ProtonMail', url: 'https://mail.proton.me/', category: 'Produktives', icon: 'fa-solid fa-lock', visible: true, order: 18 },
+        { id: 'github', name: 'GitHub', url: 'https://github.com/', category: 'Produktives', icon: 'fa-brands fa-github', visible: true, order: 19 },
     ];
 
     const DEFAULT_SETTINGS = {

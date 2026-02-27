@@ -41,13 +41,23 @@ const UI = (() => {
 
     // Create an app card HTML
     const createAppCard = (app) => {
-        let iconClass = app.icon || 'fa-globe';
-        // Ensure icon has proper Font Awesome classes
-        if (!iconClass.includes('fa-')) {
-            iconClass = 'fa-' + iconClass;
-        }
-        if (!iconClass.startsWith('fas ')) {
-            iconClass = 'fas ' + iconClass;
+        let iconClass = app.icon || 'fa-solid fa-globe';
+
+        // Intelligent prefix handling
+        const hasPrefix = iconClass.includes('fa-brands') ||
+                          iconClass.includes('fa-solid') ||
+                          iconClass.includes('fa-regular') ||
+                          iconClass.includes('fab ') ||
+                          iconClass.includes('fas ') ||
+                          iconClass.includes('far ');
+
+        if (!hasPrefix) {
+            // If no prefix found, check if it's likely a brand or default to solid
+            // But since we are cleaning up data, safer to default to solid if missing
+            if (!iconClass.startsWith('fa-')) {
+                 iconClass = 'fa-' + iconClass;
+            }
+            iconClass = 'fa-solid ' + iconClass;
         }
 
         return `
@@ -180,10 +190,10 @@ const UI = (() => {
         const isDarkMode = document.body.classList.contains('dark-mode');
 
         if (isDarkMode) {
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
             themeToggle.setAttribute('aria-label', 'Switch to light mode');
         } else {
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
             themeToggle.setAttribute('aria-label', 'Switch to dark mode');
         }
     };

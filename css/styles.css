@@ -251,9 +251,12 @@ body {
     box-shadow: var(--shadow-md);
 }
 
-.app-icon {
-    font-size: 24px;
-    color: #FFFFFF;
+.app-icon, .app-icon-circle i {
+    font-size: 1.4rem; /* Clean size */
+    color: #4a4a4a; /* Dark charcoal for Light Mode contrast */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .app-name {
