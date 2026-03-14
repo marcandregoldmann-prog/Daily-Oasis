@@ -61,11 +61,11 @@ const UI = (() => {
         }
 
         return `
-            <div class="app-card" data-app-id="${app.id}" draggable="true" role="button" tabindex="0" aria-label="${app.name}">
+            <div class="app-card" data-app-id="${app.id}" draggable="true" role="button" tabindex="0" aria-label="${Utils.escapeHtml(app.name)}">
                 <div class="app-icon-circle">
-                    <i class="${iconClass}"></i>
+                    <i class="${Utils.escapeHtml(iconClass)}"></i>
                 </div>
-                <div class="app-name">${escapeHtml(app.name)}</div>
+                <div class="app-name">${Utils.escapeHtml(app.name)}</div>
             </div>
         `;
     };
@@ -220,13 +220,6 @@ const UI = (() => {
             document.body.classList.add('dark-mode');
         }
         updateThemeToggleIcon();
-    };
-
-    // Escape HTML special characters
-    const escapeHtml = (text) => {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
     };
 
     // Setup Category Modal
