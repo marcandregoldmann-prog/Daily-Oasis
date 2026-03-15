@@ -148,6 +148,9 @@ const IconDetector = (() => {
         'trading': 'fa-solid fa-chart-line',
     };
 
+    // Pre-compute entries for performance
+    const ICON_ENTRIES = Object.entries(ICON_MAP);
+
     // Get icon for app
     const getIcon = (appName) => {
         const nameLower = appName.toLowerCase();
@@ -158,7 +161,7 @@ const IconDetector = (() => {
         }
 
         // Try to find a match in the name
-        for (const [key, icon] of Object.entries(ICON_MAP)) {
+        for (const [key, icon] of ICON_ENTRIES) {
             if (nameLower.includes(key) || key.includes(nameLower)) {
                 return icon;
             }
