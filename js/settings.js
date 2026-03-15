@@ -225,7 +225,7 @@ const Settings = (() => {
             // Apply search
             if (searchQuery) {
                 allApps = allApps.filter(app => {
-                    const searchFields = [app.name, app.url, app.category].join(' ').toLowerCase();
+                    const searchFields = (app.name + ' ' + app.url + ' ' + app.category).toLowerCase();
                     return searchFields.includes(searchQuery);
                 });
             }
