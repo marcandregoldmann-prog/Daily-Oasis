@@ -18,8 +18,6 @@ const App = (() => {
 
         // Render initial app grid
         Search.performSearch();
-
-        console.log('🌴 Daily Oasis initialized successfully!');
     };
 
     // Initialize app when DOM is ready
