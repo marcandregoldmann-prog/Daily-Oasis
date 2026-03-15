@@ -243,7 +243,7 @@ const Settings = (() => {
                         <div class="app-browser-item-icon">
                             <i class="${iconClass}"></i>
                         </div>
-                        <div class="app-browser-item-name">${escapeHtml(app.name)}</div>
+                        <div class="app-browser-item-name">${Utils.escapeHtml(app.name)}</div>
                     </div>
                 `;
             }).join('');
@@ -266,13 +266,6 @@ const Settings = (() => {
                 });
             });
         };
-    };
-
-    // Escape HTML special characters
-    const escapeHtml = (text) => {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
     };
 
     // Setup data management
