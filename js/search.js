@@ -69,12 +69,7 @@ const Search = (() => {
         // Apply search filter
         if (searchQuery.length > 0) {
             filteredApps = filteredApps.filter(app => {
-                const searchFields = [
-                    app.name,
-                    app.url,
-                    app.category,
-                ].join(' ').toLowerCase();
-
+                const searchFields = (app.name + ' ' + app.url + ' ' + app.category).toLowerCase();
                 return searchFields.includes(searchQuery);
             });
         }
