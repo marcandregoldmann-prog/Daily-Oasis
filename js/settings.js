@@ -117,6 +117,11 @@ const Settings = (() => {
             return;
         }
 
+        if (!Utils.isValidUrl(url)) {
+            alert('Please enter a valid URL starting with http:// or https://');
+            return;
+        }
+
         // Auto-detect icon if not provided
         if (!icon) {
             icon = IconDetector.getIcon(name);
@@ -220,7 +225,7 @@ const Settings = (() => {
             // Apply search
             if (searchQuery) {
                 allApps = allApps.filter(app => {
-                    const searchFields = [app.name, app.url, app.category].join(' ').toLowerCase();
+                    const searchFields = (app.name + ' ' + app.url + ' ' + app.category).toLowerCase();
                     return searchFields.includes(searchQuery);
                 });
             }
@@ -267,6 +272,7 @@ const Settings = (() => {
             });
         };
     };
+
 
     // Setup data management
     const setupDataManagement = () => {

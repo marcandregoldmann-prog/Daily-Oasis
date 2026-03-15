@@ -80,8 +80,10 @@ const UI = (() => {
                 if (e.button === 0 && !e.ctrlKey && !e.metaKey) {
                     const appId = card.getAttribute('data-app-id');
                     const app = Storage.getApps().find(a => a.id === appId);
-                    if (app) {
+                    if (app && Utils.isValidUrl(app.url)) {
                         window.open(app.url, '_blank');
+                    } else if (app) {
+                        console.warn(`Blocked attempt to open invalid URL: ${app.url}`);
                     }
                 }
             });
@@ -221,6 +223,7 @@ const UI = (() => {
         }
         updateThemeToggleIcon();
     };
+
 
     // Setup Category Modal
     const setupCategoryModal = () => {
