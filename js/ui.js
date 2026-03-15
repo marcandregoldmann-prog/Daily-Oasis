@@ -65,7 +65,7 @@ const UI = (() => {
                 <div class="app-icon-circle">
                     <i class="${iconClass}"></i>
                 </div>
-                <div class="app-name">${escapeHtml(app.name)}</div>
+                <div class="app-name">${Utils.escapeHtml(app.name)}</div>
             </div>
         `;
     };
@@ -80,8 +80,10 @@ const UI = (() => {
                 if (e.button === 0 && !e.ctrlKey && !e.metaKey) {
                     const appId = card.getAttribute('data-app-id');
                     const app = Storage.getApps().find(a => a.id === appId);
-                    if (app) {
+                    if (app && Utils.isValidUrl(app.url)) {
                         window.open(app.url, '_blank');
+                    } else if (app) {
+                        console.warn(`Blocked attempt to open invalid URL: ${app.url}`);
                     }
                 }
             });
@@ -222,12 +224,6 @@ const UI = (() => {
         updateThemeToggleIcon();
     };
 
-    // Escape HTML special characters
-    const escapeHtml = (text) => {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    };
 
     // Setup Category Modal
     const setupCategoryModal = () => {
