@@ -162,54 +162,7 @@ const Settings = (() => {
         const appBrowserFilterBtns = appBrowserModal.querySelectorAll('.filter-btn');
         let selectedAppIds = new Set();
 
-        browseAppsBtn.addEventListener('click', () => {
-            // Get currently visible apps to pre-select
-            selectedAppIds = new Set(Storage.getVisibleApps().map(app => app.id));
-            renderAppBrowser();
-            appBrowserModal.classList.add('active');
-        });
-
-        appBrowserClose.addEventListener('click', () => {
-            appBrowserModal.classList.remove('active');
-        });
-
-        appBrowserCancel.addEventListener('click', () => {
-            appBrowserModal.classList.remove('active');
-        });
-
-        appBrowserModal.addEventListener('click', (e) => {
-            if (e.target === appBrowserModal) {
-                appBrowserModal.classList.remove('active');
-            }
-        });
-
-        appBrowserSave.addEventListener('click', () => {
-            try {
-                const appIds = Array.from(selectedAppIds);
-                Storage.setVisibleApps(appIds);
-                // Refresh main grid immediately
-                UI.renderAppGrid();
-
-                appBrowserModal.classList.remove('active');
-                alert('Selection saved! Your dashboard has been updated.');
-            } catch (e) {
-                alert('Error: ' + e.message);
-            }
-        });
-
-        // Filter buttons in app browser
-        appBrowserFilterBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                 appBrowserFilterBtns.forEach(b => b.classList.remove('active'));
-                 e.target.classList.add('active');
-                 renderAppBrowser();
-            });
-        });
-
-        // Search in app browser
-        appBrowserSearch.addEventListener('input', renderAppBrowser);
-
-        function renderAppBrowser() {
+        const renderAppBrowser = () => {
             const searchQuery = appBrowserSearch.value.toLowerCase();
             const filterCategory = Array.from(appBrowserFilterBtns)
                 .find(btn => btn.classList.contains('active'))
@@ -271,6 +224,53 @@ const Settings = (() => {
                 });
             });
         };
+
+        browseAppsBtn.addEventListener('click', () => {
+            // Get currently visible apps to pre-select
+            selectedAppIds = new Set(Storage.getVisibleApps().map(app => app.id));
+            renderAppBrowser();
+            appBrowserModal.classList.add('active');
+        });
+
+        appBrowserClose.addEventListener('click', () => {
+            appBrowserModal.classList.remove('active');
+        });
+
+        appBrowserCancel.addEventListener('click', () => {
+            appBrowserModal.classList.remove('active');
+        });
+
+        appBrowserModal.addEventListener('click', (e) => {
+            if (e.target === appBrowserModal) {
+                appBrowserModal.classList.remove('active');
+            }
+        });
+
+        appBrowserSave.addEventListener('click', () => {
+            try {
+                const appIds = Array.from(selectedAppIds);
+                Storage.setVisibleApps(appIds);
+                // Refresh main grid immediately
+                UI.renderAppGrid();
+
+                appBrowserModal.classList.remove('active');
+                alert('Selection saved! Your dashboard has been updated.');
+            } catch (e) {
+                alert('Error: ' + e.message);
+            }
+        });
+
+        // Filter buttons in app browser
+        appBrowserFilterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                 appBrowserFilterBtns.forEach(b => b.classList.remove('active'));
+                 e.target.classList.add('active');
+                 renderAppBrowser();
+            });
+        });
+
+        // Search in app browser
+        appBrowserSearch.addEventListener('input', renderAppBrowser);
     };
 
 
