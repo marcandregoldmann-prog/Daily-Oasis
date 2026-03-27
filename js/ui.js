@@ -3,6 +3,8 @@
    ============================================ */
 
 const UI = (() => {
+    let renderedApps = [];
+
     // Initialize UI
     const init = () => {
         setupFloatingHeader();
@@ -19,6 +21,7 @@ const UI = (() => {
 
     // Update app grid with given apps
     const updateAppGrid = (apps) => {
+        renderedApps = apps;
         const appGrid = document.getElementById('appGrid');
         const emptyState = document.getElementById('emptyState');
 
@@ -79,7 +82,7 @@ const UI = (() => {
             card.addEventListener('click', (e) => {
                 if (e.button === 0 && !e.ctrlKey && !e.metaKey) {
                     const appId = card.getAttribute('data-app-id');
-                    const app = Storage.getApps().find(a => a.id === appId);
+                    const app = renderedApps.find(a => a.id === appId);
                     if (app && Utils.isValidUrl(app.url)) {
                         window.open(app.url, '_blank');
                     } else if (app) {
@@ -162,7 +165,7 @@ const UI = (() => {
 
     // Handle context menu actions
     const handleContextMenuAction = (action, appId) => {
-        const app = Storage.getApps().find(a => a.id === appId);
+        const app = renderedApps.find(a => a.id === appId);
         if (!app) return;
 
         switch (action) {
